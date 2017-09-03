@@ -1,5 +1,4 @@
 import click
-from datetime import datetime
 from slogger.cli import pass_context, db
 
 

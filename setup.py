@@ -8,6 +8,7 @@ setup(
     install_requires=[
         'click',
         'tinyDB',
+        'flask',
     ],
     entry_points='''
         [console_scripts]
