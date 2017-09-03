@@ -1,6 +1,7 @@
 import os
 import sys
 import click
+from tinydb import TinyDB
 
 
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='SLOGGER')
@@ -18,13 +19,26 @@ class Context(object):
             msg %= args
         click.echo(msg, file=sys.stderr)
 
-    def vlog(self, msg, *args):
+    def warning(self, msg, *args):
+        """Logs a warning to stderr."""
+        self.log(click.style("## WARNING - %s" % msg, *args, fg='yellow'))
+
+    def error(self, msg, *args):
+        """Logs an error to stderr."""
+        self.log(click.style("## ERROR - %s" % msg, *args, fg='red'))
+
+    def info(self, msg, *args):
+        """Logs an info message to stderr."""
+        self.log(click.style("## INFO - %s" % msg, *args, fg='blue'))
+
+    def debug(self, msg, *args):
         """Logs a message to stderr only if verbose is enabled."""
         if self.verbose:
-            self.log(msg, *args)
+            self.log(click.style("DEBUG - %s" % msg, *args, fg='green'))
 
 
 pass_context = click.make_pass_decorator(Context, ensure=True)
+db = TinyDB(os.path.expanduser('~/.slogger.json'))
 cmd_folder = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                           'commands'))
 
@@ -52,14 +66,9 @@ class ComplexCLI(click.MultiCommand):
 
 
 @click.command(cls=ComplexCLI, context_settings=CONTEXT_SETTINGS)
-@click.option('--home', type=click.Path(exists=True, file_okay=False,
-                                        resolve_path=True),
-              help='Changes the folder to operate on.')
 @click.option('-v', '--verbose', is_flag=True,
               help='Enables verbose mode.')
 @pass_context
-def cli(ctx, verbose, home):
+def cli(ctx, verbose):
     """Logging interface to add messages to a file based on project"""
     ctx.verbose = verbose
-    if home is not None:
-        ctx.home = home

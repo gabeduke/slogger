@@ -1,8 +1,6 @@
 import click
-import os
-from tinydb import TinyDB, Query
 from datetime import datetime
-from slogger.cli import pass_context
+from slogger.cli import pass_context, db
 
 
 @click.command()
@@ -12,8 +10,7 @@ from slogger.cli import pass_context
 @pass_context
 def cli(ctx, project, message):
     """Log messages for activity"""
-    ctx.log('writing ')
-    ctx.vlog('bla bla bla, debug info')
-    db = TinyDB(os.path.expanduser('~/.slogger.json'))
+    ctx.info('writing ')
+    ctx.debug('bla bla bla, debug info')
     db.insert({'project': project, 'message': message})
 
