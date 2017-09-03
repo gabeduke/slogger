@@ -9,12 +9,11 @@ from tinydb import Query
 def cli(ctx, project):
     """Print messages logged for Project"""
     ctx.debug(db.all())
-    ctx.info('Querying db for project')
 
     Project = Query()
     data = db.search(Project.project == project)
-    print("Project: %s" % data)
 
-    ctx.info("Print messages for project")
+    ctx.info("Project: %s" % project)
     for item in data:
+        ctx.debug(item)
         print("Message: %s" % item['message'])
