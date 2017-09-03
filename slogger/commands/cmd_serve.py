@@ -1,9 +1,9 @@
 import click
+from slogger.cli import pass_context, db
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-# HTTPRequestHandler class
-class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
+class DataServer(BaseHTTPRequestHandler):
     # GET
     def do_GET(self):
         # Send response status code
@@ -14,20 +14,21 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # Send message back to client
-        message = "Hello world!"
+        message = "%s" % db.all()
         # Write content as utf-8 data
         self.wfile.write(bytes(message, "utf8"))
+
         return
 
 
 @click.command()
-def cli():
-    print('starting server...')
+@pass_context
+def cli(ctx):
 
-    # Server settings
-    # Choose port 8080, for port 80, which is normally used for a http server, you need root access
+    ctx.info('starting server...')
     server_address = ('127.0.0.1', 8081)
-    httpd = HTTPServer(server_address, testHTTPServer_RequestHandler)
-    print('running server...')
+    httpd = HTTPServer(server_address, DataServer)
+
+    ctx.info('running server...')
     click.launch('http://127.0.0.1:8081')
     httpd.serve_forever()
