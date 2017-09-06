@@ -9,6 +9,7 @@ setup(
         'click',
         'tinyDB',
         'flask',
+        'beautifultable'
     ],
     entry_points='''
         [console_scripts]

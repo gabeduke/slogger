@@ -4,11 +4,10 @@ from slogger.cli import pass_context, db
 
 
 @click.command()
-@click.option('--project', default='admin', prompt='Project',
-              help='Project to log message under')
-@click.option('--message', prompt='your message',
+@click.argument('project')
+@click.option('-m', '--message', prompt='your message',
               help='Message to log for Project')
-@click.option('--hours', prompt='recorded hours', default='1',
+@click.option('-h', '--hours', prompt='recorded hours', default='1',
               help='time to log for Project')
 @pass_context
 def cli(ctx, project, message, hours):

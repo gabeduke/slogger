@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 
 @app.route('/db')
-def db():
+@pass_context
+def database(ctx):
     # Send message back to client
     message = "%s" % db.all()
     return message
