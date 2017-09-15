@@ -12,3 +12,7 @@ Usage:
   $ . .env/bin/activate
   $ pip install --editable .
   $ slog --help
+
+link to executable:
+
+  $ ln -s $(pwd)/.env/bin/slog /usr/bin/slog
