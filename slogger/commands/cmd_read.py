@@ -4,7 +4,7 @@ from tinydb import Query
 from beautifultable import BeautifulTable
 
 table = BeautifulTable()
-table.column_headers = ["hours", "project", "message"]
+table.column_headers = ["eid", "hours", "project", "message"]
 
 
 @click.command()
@@ -33,8 +33,6 @@ def cli(ctx, project):
 def print_data(ctx, project):
     Project = Query()
     data = db.search(Project.project == project)
-    #print("\n## Project: %s\n##" % project)
     for item in data:
         ctx.debug(item)
-        table.append_row([item['logged_hours'], item['project'], item['message']])
-        #print("## Message: %s" % item['message'])
+        table.append_row([item.eid, item['logged_hours'], item['project'], item['message']])
