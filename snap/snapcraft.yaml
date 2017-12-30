@@ -15,4 +15,8 @@
   parts:
     my-part:
       # See 'snapcraft plugins'
-      plugin: python
+      plugin: python3
+
+  apps:
+    slog:
+      command: bin/slog

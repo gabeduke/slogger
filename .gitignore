@@ -52,3 +52,8 @@ fabric.properties
 
 /.env/
 /click_example_complex.egg-info/
+
+parts
+prime
+stage
+*.snap
