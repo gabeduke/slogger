@@ -15,6 +15,7 @@ jobs:
     - name: Build snap
       run: |
         apt-get update -y
+        apt-get install python3-distutils -y
         snapcraft
     - name: Push snap
       env:
