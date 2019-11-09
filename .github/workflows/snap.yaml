@@ -8,11 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: snapcore/snapcraft
     steps:
     - uses: actions/checkout@v1
     - name: Build snap
       run: |
-        snap install snapcraft --classic
+        apt-get update -y
+        apt-get install python3-distutils -y
         snapcraft
     - name: Push snap
       env:
