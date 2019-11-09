@@ -12,7 +12,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build snap
       run: |
-        sudo snap install snapcraft --classic
+        apt-get update -qy
+        apt-get install -y snapcraft
         snapcraft
     - name: Push snap
       env:
