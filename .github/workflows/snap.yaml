@@ -12,8 +12,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build snap
       run: |
-        apt-get update -y
-        apt-get install python3-distutils -y
         snap install snapcraft --classic
         snapcraft
     - name: Push snap
