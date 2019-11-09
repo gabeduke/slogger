@@ -72,3 +72,6 @@ class ComplexCLI(click.MultiCommand):
 def cli(ctx, verbose):
     """Logging interface to add messages to a file based on project"""
     ctx.verbose = verbose
+
+if __name__ == "__main__":
+    cli()
