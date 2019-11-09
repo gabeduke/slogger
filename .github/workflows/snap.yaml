@@ -8,13 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: snapcore/snapcraft
     steps:
     - uses: actions/checkout@v1
     - name: Build snap
       run: |
-        apt-get update -y
+        sudo snap install snapcraft --classic
         snapcraft
     - name: Push snap
       env:
